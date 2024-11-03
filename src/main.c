@@ -7,11 +7,11 @@
    'letters_occ': vetor de inteiros com o total de ocorrências de cada caractere do conteúdo do arquivo */
 void bubble_sort(char letters[], int letters_occ[])
 {
-    for (int i = 0; i < 26; i++)
+    for (int i = 0; i < 54; i++)
     {
-        for (int j = 0; j < 25; j++)
+        for (int j = 0; j < 54; j++)
         {
-            if (letters[j] > letters[j + 1])
+            if ((letters[j] > letters[j + 1]) && (letters[j] != '\0') && (letters[j+1] != '\0'))
             {
                 char aux_char = letters[j];
                 int aux_int = letters_occ[j];
@@ -32,7 +32,7 @@ void bubble_sort(char letters[], int letters_occ[])
    'return i': retorno da posição do caractere encontrado no vetor de caracteres
    'return 0': retorno -1 indica que o caractere não foi encontrado no vetor de caracteres  */
 int check_letters(char letters[], char caracter) {
-    for (int i = 0; i < 26; i++)
+    for (int i = 0; i < 54; i++)
         if (caracter == letters[i]) return i;
     return -1;
 }
@@ -84,17 +84,17 @@ int main()
             else
             {
                 char buffer[100];
-                char letters[27];
-                int letters_occ[27];
+                char letters[54];
+                int letters_occ[54];
                 int k = 0;
                 int pos = 0;
-                int capital;
-                int lowercase;
+                int capital = 0;
+                int lowercase = 0;
 
                 printf("\nFile Opened Succesfully!\n\nFile Content:\n");
 
                 // Preenchendo os vetores com valores padrão '\0' e 0
-                for (int k = 0; k < 27; k++)
+                for (int k = 0; k < 54; k++)
                 {
                     letters[k] = '\0';
                     letters_occ[k] = 0;
@@ -105,7 +105,7 @@ int main()
 
                     printf("%s", buffer);
 
-                    for (int i = 0; i < sizeof(buffer); i++)
+                    for (int i = 0; buffer[i] != '\0'; i++)
                     {
                         capital = (buffer[i] >= 65 && buffer[i] <= 90);
                         lowercase = (buffer[i] >= 97 && buffer[i] <= 122);
@@ -116,29 +116,22 @@ int main()
                             letters_occ[pos] += 1;
 
                           // Se o caractere não existir no vetor de caracteres, adicionar
-                        } else if ((capital || lowercase) && buffer[i] != '\n') {
-                            printf("\nLetter: %c", buffer[i]);
+                        } else if ((pos == -1) && (capital || lowercase) && (buffer[i] != '\n') && (buffer[i] != '\0')) {
                             letters[k] = buffer[i];
+                            letters_occ[k] = 1;
                             k++;
                         }
                     }
                 }
 
-                printf("\n\nLetters: ");
-                for (int i = 0; i < 27; i++) {
-                    printf("%c ", letters[i]);
-                }
-
                 bubble_sort(letters, letters_occ);
 
                 printf("\n\nLetters Frequence:\n");
-                for (int k = 0; k < 26; k++)
-                {
-                    printf("%c: %d\n", letters[k], letters_occ[k]);
-                }
+                for (int m = 0; letters[m] != '\0'; m++)
+                    printf("%c: %d\n", letters[m], letters_occ[m]);
             }
 
-            printf("\n");
+            // printf("\n");
             break;
 
         case 2:
