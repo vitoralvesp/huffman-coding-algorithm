@@ -81,7 +81,7 @@ int main()
             // file_ptr = fopen(filepath, "r");
 
             printf("Searching for File in \"../docs/input-files/in-the-end-by-linkin-park.txt\"...\n");
-            file_ptr = fopen("./docs/input-files/in-the-end-by-linkin-park.txt", "r");
+            file_ptr = fopen("../docs/input-files/in-the-end-by-linkin-park.txt", "r");
 
             if (file_ptr == NULL)
             {
@@ -143,6 +143,7 @@ int main()
                 size += letters_occ[i];
 
             Node *root = buildHuffmanTree(letters, letters_occ, size);
+            printf("Size: %d", size);
             int arr[size];
             int top = 0;
             printCodes(root, arr, top);

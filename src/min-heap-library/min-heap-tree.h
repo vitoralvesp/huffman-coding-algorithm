@@ -21,17 +21,28 @@ typedef struct {
 } MinHeap;
 
 Node *createNode(char letter, int frequency);
+
 MinHeap *createMinHeap(int capacity);
+
 void swapNodes(Node **node_a, Node **node_b);
+
 void minHeapify(MinHeap *min_heap, int idx);
-MinHeap *extractMin(MinHeap *min_heap);
+
+Node *extractMin(MinHeap *min_heap);
+
 void insertNode(MinHeap *min_heap, Node *node);
+
 void buildMinHeap(MinHeap *min_heap);
+
 int isLeaf(Node *root);
-MinHeap *createAndBuildMinHeap(char data[], int frequency[], int size);
-Node *buildHuffmanTree(char letters[], int frequency[], int size);
+
+MinHeap *createAndBuildMinHeap(char letters[], int frequency[], int size);
+
 int isSizeOne(MinHeap *min_heap);
+
 Node *buildHuffmanTree(char letters[], int frequency[], int size);
+
 void printArr(int arr[], int n);
+
 void printCodes(Node *root, int arr[], int top);
 

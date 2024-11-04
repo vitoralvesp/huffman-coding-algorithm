@@ -31,7 +31,7 @@ MinHeap *createMinHeap(int capacity) {
     if (min_heap != NULL) {
         min_heap->size = 0;
         min_heap->capacity = capacity;
-        min_heap->arr = (MinHeap **)malloc(min_heap->capacity * sizeof(MinHeap *));
+        min_heap->arr = (Node **)malloc(min_heap->capacity * sizeof(Node *));
 
     } else
         printf("ERROR: Memory Allocation for New Min Heap Failed!!!\n");
@@ -66,8 +66,8 @@ void minHeapify(MinHeap *min_heap, int idx) {
 }
 
 /* extractMin: extrai o menor node da árvore Min Heap*/
-MinHeap *extractMin(MinHeap *min_heap) {
-    MinHeap *aux = min_heap->arr[0];
+Node *extractMin(MinHeap *min_heap) {
+    Node *aux = min_heap->arr[0];
     min_heap->arr[0] = min_heap->arr[min_heap->size - 1];
     --min_heap->size;
     minHeapify(min_heap, 0);
