@@ -63,96 +63,98 @@ int main()
         if (menu_option == 3)
         {
             printf("---\n\nExiting Program...\n\n");
-            if (file_ptr != NULL)
-                fclose(file_ptr);
             break;
         }
 
         switch (menu_option)
         {
 
-            case 1:
+        case 1:
+        {
+            // char filepath[100];
 
-                // char filepath[100];
+            printf("---\n\nREADING FILE\n");
 
-                printf("---\n\nREADING FILE\n");
+            // printf("\nEnter file path: ");
+            // scanf("%99s", filepath);
+            // printf("Searching for File \"%s\"...\n", filepath);
+            // file_ptr = fopen(filepath, "r");
 
-                // printf("\nEnter file path: ");
-                // scanf("%99s", filepath);
-                // printf("Searching for File \"%s\"...\n", filepath);
-                // file_ptr = fopen(filepath, "r");
+            printf("Searching for File in \"../docs/input-files/in-the-end-by-linkin-park.txt\"...\n");
+            file_ptr = fopen("./docs/input-files/in-the-end-by-linkin-park.txt", "r");
 
-                printf("Searching for File in \"../docs/input-files/in-the-end-by-linkin-park.txt\"...\n");
-                file_ptr = fopen("../../docs/input-files/in-the-end-by-linkin-park.txt", "r");
+            if (file_ptr == NULL)
+            {
+                printf("\nERROR: Cannot Open/Read File\n\n");
+                exit(1);
+            }
+            else
+            {
+                char buffer[100];
+                int k = 0;
+                int pos = 0;
+                int capital = 0;
+                int lowercase = 0;
 
-                if (file_ptr == NULL)
+                printf("\nFile Opened Succesfully!\n\nFile Content:\n");
+
+                while (fgets(buffer, sizeof(buffer), file_ptr))
                 {
-                    printf("\nERROR: Cannot Open/Read File\n\n");
-                    exit(1);
-                }
-                else
-                {
-                    char buffer[100];
-                    int k = 0;
-                    int pos = 0;
-                    int capital = 0;
-                    int lowercase = 0;
 
-                    printf("\nFile Opened Succesfully!\n\nFile Content:\n");
+                    printf("%s", buffer);
 
-                    while (fgets(buffer, sizeof(buffer), file_ptr))
+                    for (int i = 0; buffer[i] != '\0'; i++)
                     {
+                        capital = (buffer[i] >= 65 && buffer[i] <= 90);
+                        lowercase = (buffer[i] >= 97 && buffer[i] <= 122);
+                        pos = check_letters(letters, buffer[i]);
 
-                        printf("%s", buffer);
-
-                        for (int i = 0; buffer[i] != '\0'; i++)
+                        // Se o caractere existir no vetor de caracteres, contabilizar +1
+                        if (pos != -1)
                         {
-                            capital = (buffer[i] >= 65 && buffer[i] <= 90);
-                            lowercase = (buffer[i] >= 97 && buffer[i] <= 122);
-                            pos = check_letters(letters, buffer[i]);
+                            letters_occ[pos] += 1;
 
-                            // Se o caractere existir no vetor de caracteres, contabilizar +1
-                            if (pos != -1)
-                            {
-                                letters_occ[pos] += 1;
-
-                                // Se o caractere não existir no vetor de caracteres, adicionar
-                            }
-                            else if ((pos == -1) && (capital || lowercase) && (buffer[i] != '\n') && (buffer[i] != '\0'))
-                            {
-                                letters[k] = buffer[i];
-                                letters_occ[k] = 1;
-                                k++;
-                            }
+                            // Se o caractere não existir no vetor de caracteres, adicionar
+                        }
+                        else if ((pos == -1) && (capital || lowercase) && (buffer[i] != '\n') && (buffer[i] != '\0'))
+                        {
+                            letters[k] = buffer[i];
+                            letters_occ[k] = 1;
+                            k++;
                         }
                     }
-
-                    bubble_sort(letters, letters_occ);
-
-                    printf("\n\nLetters Frequence:\n");
-                    for (int m = 0; letters[m] != '\0'; m++)
-                        printf("%c: %d\n", letters[m], letters_occ[m]);
                 }
 
-                // printf("\n");
-                break;
+                bubble_sort(letters, letters_occ);
 
-            case 2:
-                int size = 0;
-                for (int i = 0; i < 54; i++)
-                    size += letters_occ[i];
-
-                Node *root = buildHuffmanTree(letters, letters_occ, size);
-                int arr[size];
-                int top = 0;
-                printCodes(root, arr, top);
-
-                break;
-
-            default:
-                printf("\nWrong Menu Option!!! Try Again only with 1 to 3 options...\n");
-                break;
+                printf("\n\nLetters Frequence:\n");
+                for (int m = 0; letters[m] != '\0'; m++)
+                    printf("%c: %d\n", letters[m], letters_occ[m]);
             }
+
+            // printf("\n");
+            fclose(file_ptr);
+            break;
+        }
+        case 2:
+        {
+            int size = 0;
+            for (int i = 0; i < 54; i++)
+                size += letters_occ[i];
+
+            Node *root = buildHuffmanTree(letters, letters_occ, size);
+            int arr[size];
+            int top = 0;
+            printCodes(root, arr, top);
+
+            break;
+        }
+        default:
+        {
+            printf("\nWrong Menu Option!!! Try Again only with 1 to 3 options...\n");
+            break;
+        }
+        }
     }
 
     return 0;
