@@ -138,7 +138,7 @@ int main()
         }
         case 2:
         {
-            int size = 0;
+            int size = 1;
             for (int i = 0; i < 54; i++)
                 size += letters_occ[i];
 
