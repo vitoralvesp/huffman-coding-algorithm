@@ -138,9 +138,9 @@ int main()
         }
         case 2:
         {
-            int size = 1;
+            int size = 0;
             for (int i = 0; i < 54; i++)
-                size += letters_occ[i];
+                size++;
 
             Node *root = buildHuffmanTree(letters, letters_occ, size);
             printf("Size: %d", size);
