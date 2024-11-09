@@ -263,7 +263,7 @@ int main()
         case 1:
             printf("---\nREADING FILE\n");
 
-            printf("Searching for File in \"../docs/input-files/in-the-end-by-linkin-park.txt\"...\n");
+            printf("Searching for File in \"../../docs/input-files/in-the-end-by-linkin-park.txt\"...\n");
             file_ptr = fopen("../../docs/input-files/in-the-end-by-linkin-park.txt", "r");
 
             if (file_ptr == NULL)
@@ -335,13 +335,12 @@ int main()
                 for (int i = 0; buffer[i] != '\0'; i++)
                     HuffmanCodes(buffer[i], letters, letters_occ, size);
             }
+            printf("\n");
             break;
 
         default:
-        {
             printf("---\nWrong Menu Option!!! Try Again only with 1 to 4 options...\n");
             break;
-        }
         }
     }
 
